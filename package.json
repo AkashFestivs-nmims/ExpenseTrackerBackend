@@ -1,0 +1,17 @@
+{
+  "name": "expensetrackerbackend",
+  "version": "1.0.0",
+  "description": "Expense Tracker Back End",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "pg": "^8.10.0",
+    "postgres": "^3.3.4"
+  }
+}
