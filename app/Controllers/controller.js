@@ -5,12 +5,21 @@ require('dotenv').config();
 
 module.exports = {
 
-    getUsers : (req , res , next ) =>{
-        Promise.all([queryresult.getUsers()]).then(result => {
+    getUserDetails : (req,res,next) =>{
+        Promise.all([queryresult.getUserDetail()]).then(result => {
             console.log('result : ',result[0].rows);
             let data = result[0].rows;
             res.send(data);
-        })
+        })  
+    },
+
+    getDashboardCompByRole : (req,res,next) =>{
+        console.log('BODY : ',req.body);
+        Promise.all([queryresult.getDashboardCompByRole()]).then(result => {
+            console.log('result : ',result[0].rows);
+            let data = result[0].rows;
+            res.send(data);
+        })  
     },
 
     generateAccessToken : (req , res , next ) =>{
