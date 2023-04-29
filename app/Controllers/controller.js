@@ -7,19 +7,27 @@ module.exports = {
 
     getUserDetails : (req,res,next) =>{
         Promise.all([queryresult.getUserDetail()]).then(result => {
-            console.log('result : ',result[0].rows);
             let data = result[0].rows;
             res.send(data);
         })  
     },
 
-    getDashboardCompByRole : (req,res,next) =>{
-        console.log('BODY : ',req.body);
-        Promise.all([queryresult.getDashboardCompByRole()]).then(result => {
-            console.log('result : ',result[0].rows);
-            let data = result[0].rows;
-            res.send(data);
-        })  
+    verifyUser :async (req,res,next) =>{
+        await console.log('Email : ',req.body.username);
+            Promise.all([queryresult.verifyLogin(req.body.username)]).then(result => {
+                let data = result[0].rows;
+                console.log(data);
+                res.send(data);
+            })  
+    },
+
+    getDashboardCompByRole :async (req,res,next) =>{
+        await console.log('Role : ',req.body);
+            Promise.all([queryresult.getDashboardCompByRole(req.body.role)]).then(result => {
+                console.log('result : ',result[0].rows);
+                let data = result[0].rows;
+                res.send(data);
+            })  
     },
 
     generateAccessToken : (req , res , next ) =>{
