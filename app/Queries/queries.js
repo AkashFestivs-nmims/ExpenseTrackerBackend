@@ -2,10 +2,10 @@ const {postgres} = require("../Configs/database.js");
 
 module.exports = class queries{
     
-    static getUserDetail() {
+    static getUserDetail(username) {
         return  postgres.query(`select * from public.user pu
                                 inner join user_info ui on pu.id = ui.user_lid
-                                inner join role r on pu. role_lid = r.id where pu.id = 1;`);
+                                inner join role r on pu. role_lid = r.id where pu.email = $1;`,[username]);
     }
 
     static getDashboardCompByRole(role){

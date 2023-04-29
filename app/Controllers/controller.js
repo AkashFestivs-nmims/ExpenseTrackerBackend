@@ -5,8 +5,9 @@ require('dotenv').config();
 
 module.exports = {
 
-    getUserDetails : (req,res,next) =>{
-        Promise.all([queryresult.getUserDetail()]).then(result => {
+    getUserDetails :async (req,res,next) =>{
+        await console.log('Email value from cookie: ',req.body.username);
+        Promise.all([queryresult.getUserDetail(req.body.username)]).then(result => {
             let data = result[0].rows;
             res.send(data);
         })  
