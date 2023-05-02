@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const redis = require('redis');
 
   const postgres = new Client({
     host: 'localhost',
@@ -8,4 +9,10 @@ const { Client } = require('pg');
     database: 'expenseTracker',
   });
 
-module.exports = {postgres}
+  const redisDB = redis.createClient({
+    host: 'localhost',
+    port: 6379,
+    password: 'yourpassword'
+  });
+
+module.exports = {postgres, redisDB }

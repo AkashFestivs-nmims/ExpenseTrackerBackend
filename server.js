@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 5000;
 
-const {postgres} = require("./app/Configs/database.js");
+const {postgres,redisDB} = require("./app/Configs/database.js");
 postgres.connect();
+redisDB.connect();
 
 const router = require('./app/Routers/router.js');
 app.use(bodyParser.json());
