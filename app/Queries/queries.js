@@ -22,4 +22,8 @@ module.exports = class queries{
                                 inner join role r on pu. role_lid = r.id where pu.email = $1 and password = $2`,[email,password]);
     }
 
+    static getProfilDropDownList(id) {
+        return postgres.query(`SELECT * FROM get_profil_drop_down_list($1)`,[id]);
+    }
+
 }

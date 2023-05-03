@@ -8,6 +8,7 @@ router.post('/get-user-detail',middleWare.verifyRequest,controller.getUserDetail
 router.post('/get-dashboard-comp',middleWare.verifyRequest,controller.getDashboardCompByRole);
 router.post('/verify-user',controller.verifyUser);
 router.post('/logout',middleWare.verifyRequest,controller.logOut);
+router.post('/get-profie-drop-down-list',middleWare.verifyRequest,controller.getProfilDropDownList);
 
 
 module.exports = router;

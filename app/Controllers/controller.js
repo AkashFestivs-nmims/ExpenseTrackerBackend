@@ -16,6 +16,17 @@ module.exports = {
         })  
     },
 
+    getProfilDropDownList :async(req,res,next) =>{
+        let redisJson =await redisDB.get(req.body.key);
+        let value = await JSON.parse(redisJson);
+        Promise.all([queryresult.getProfilDropDownList(value[0].id)]).then(result => {
+            let data = result[0].rows[0].get_profil_drop_down_list;
+            console.log('getProfilDropDownList : ',data[0]);
+            res.send(data);
+        })
+
+    },
+
     verifyUser :async (req,res,next) =>{
         let username = req.body.username;
         let password = req.body.password;
