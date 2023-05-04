@@ -28,8 +28,10 @@ module.exports = {
     },
 
     verifyUser :async (req,res,next) =>{
+        console.log("Verify Requesty");
         let username = req.body.username;
         let password = req.body.password;
+        if(!username && !password){
         let key = await crypto.randomUUID();
 
             Promise.all([queryresult.verifyLogin(username,password)]).then(result => {
@@ -38,7 +40,10 @@ module.exports = {
                 redisDB.set(key,JSON.stringify(data), { expiresIn: '1d'});
                 data[0].key = key;
                 res.status(200).json(data);
-            })  
+            })
+        }else{
+            res.status(406).json({message: 'Not Acceptable'});
+        }  
     },
 
     getDashboardCompByRole :async (req,res,next) =>{
