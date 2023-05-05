@@ -8,6 +8,10 @@ module.exports = class queries{
                                 inner join role r on pu. role_lid = r.id where pu.email = $1;`,[username]);
     }
 
+    static registerUser(json){
+        return postgres.query('select * from register_user($1)',[json]);
+    }
+
     static getDashboardCompByRole(role){
         console.log('Role in query : '+role);
         return postgres.query(`select sbc.menu,sbc.menu_icon,sbc.link from role r

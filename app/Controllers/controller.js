@@ -6,6 +6,22 @@ require('dotenv').config();
 
 module.exports = {
 
+    registerUser :async (req,res,next) =>{
+        console.log("reg OBJ : ",req.body);
+        Promise.all([queryresult.registerUser(req.body)]).then(result => {
+            let data = result[0].rows;
+            res.send(data);
+        }).catch(err =>{
+            console.log(err.message);
+            if(err.message.includes('unique')){
+
+                res.status(500).json({'message':'Email already Exists','word' : 'already'})
+            }else{
+                res.status(500).json({'message':'Internal Server Error','word' : 'error'})
+            }
+        })  
+    },
+
     getUserDetails :async (req,res,next) =>{
 
         let redisJson =await redisDB.get(req.body.key);
@@ -31,16 +47,20 @@ module.exports = {
         console.log("Verify Requesty");
         let username = req.body.username;
         let password = req.body.password;
-        if(!username && !password){
-        let key = await crypto.randomUUID();
+        if(username !=null && password !=null){
+            let key = await crypto.randomUUID();
 
-            Promise.all([queryresult.verifyLogin(username,password)]).then(result => {
-                let data = result[0].rows;
-                console.log('User Data :',data);
-                redisDB.set(key,JSON.stringify(data), { expiresIn: '1d'});
-                data[0].key = key;
-                res.status(200).json(data);
-            })
+                Promise.all([queryresult.verifyLogin(username,password)]).then(result => {
+                    let data = result[0].rows;
+                    console.log('User Data :',JSON.stringify(data).length);
+                    if(JSON.stringify(data).length > 2){
+                        redisDB.set(key,JSON.stringify(data), { expiresIn: '1d'});
+                        data[0].key = key;
+                        res.status(200).json(data);
+                    }else{
+                        res.status(404).json({message: 'No User Found !'});
+                    }
+                })
         }else{
             res.status(406).json({message: 'Not Acceptable'});
         }  
