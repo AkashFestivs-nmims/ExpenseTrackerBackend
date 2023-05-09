@@ -2,7 +2,8 @@ const queryresult = require('../Queries/queries.js');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const {redisDB} = require("../Configs/database.js");
-require('dotenv').config();
+const {uploadImage} = require('../Configs/imageKit.js')
+
 
 module.exports = {
 
@@ -37,7 +38,6 @@ module.exports = {
         let value = await JSON.parse(redisJson);
         Promise.all([queryresult.getProfilDropDownList(value[0].id)]).then(result => {
             let data = result[0].rows[0].get_profil_drop_down_list;
-            console.log('getProfilDropDownList : ',data[0]);
             res.send(data);
         })
 

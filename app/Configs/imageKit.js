@@ -6,6 +6,7 @@ const imagekit = new ImageKit({
     urlEndpoint: process.env.IMAGE_KIT_URL
 });
 
+
 async function uploadImage(fileName, buffer) {
     return await imagekit.upload({
         file: buffer, //required

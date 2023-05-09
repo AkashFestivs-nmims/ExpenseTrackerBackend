@@ -4,13 +4,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 5000;
+require('dotenv').config();
 
 const {postgres,redisDB} = require("./app/Configs/database.js");
 postgres.connect();
 redisDB.connect();
 
 const router = require('./app/Routers/router.js');
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '100mb'}));
 app.use(cors());
 app.use('/', router);
 
