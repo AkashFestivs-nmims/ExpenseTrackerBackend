@@ -6,8 +6,8 @@ module.exports = class paymemtQueries{
         return postgres.query(`SELECT * FROM insert_payment_type($1)`,[json]);
     }
 
-    static viewAllPaymentType() {
-        return postgres.query(`select payment_name,payment_icon,id from payment_type_master where active = true;`);
+    static viewAllPaymentType(char) {
+        return postgres.query(`select payment_name,payment_icon,id from payment_type_master where active = true and UPPER(payment_name) like $1;`,['%'+char+'%']);
     }
 
     static getUserPaymentType(user_lid) {

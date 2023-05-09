@@ -18,7 +18,8 @@ module.exports = {
     },
 
     viewAllPaymentType :async (req,res,next) =>{
-            Promise.all([queryresult.viewAllPaymentType()]).then(result => {
+
+            Promise.all([queryresult.viewAllPaymentType(req.body.char)]).then(result => {
                 console.log('result : ',result[0].rows);
                 let data = result[0].rows;
                 res.send(data);
