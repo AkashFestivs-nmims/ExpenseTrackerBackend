@@ -22,6 +22,9 @@ router.post('/add-payment-type-mapping',middleWare.verifyRequest,PaymnetControll
 
 //* Wallet Routing
 
-router.post('/get-user-wallet',middleWare.verifyRequest,walletController.getUserWallet)
+router.post('/get-user-wallet',middleWare.verifyRequest,walletController.getUserWallet);
+router.post('/update-wallet-ammount',middleWare.verifyRequest,walletController.updateWalletMoney);
+router.post('/update-wallet-colour',middleWare.verifyRequest,walletController.updateWalletColour);
+router.post('/currency-list',middleWare.verifyRequest,walletController.currencyList);
 
 module.exports = router;
