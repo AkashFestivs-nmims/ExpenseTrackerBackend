@@ -11,7 +11,7 @@ module.exports = class paymemtQueries{
     }
 
     static getUserPaymentType(user_lid) {
-        return postgres.query(`select ptm.payment_name,ptm.payment_icon,ptm.id as paymnet_type_id,upm.id as user_payment_id from user_paymentType_mapping upm
+        return postgres.query(`select ptm.payment_name,ptm.payment_icon,ptm.id as paymnet_type_id,upm.id as user_payment_id,ptm.account_type_lid from user_paymentType_mapping upm
                                 inner join payment_type_master ptm on upm.payment_type_lid = ptm.id 
                                 where upm.user_lid = $1 and ptm.active = true and upm.active = true;`,[user_lid]);
     }

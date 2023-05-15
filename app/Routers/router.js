@@ -26,5 +26,6 @@ router.post('/get-user-wallet',middleWare.verifyRequest,walletController.getUser
 router.post('/update-wallet-ammount',middleWare.verifyRequest,walletController.updateWalletMoney);
 router.post('/update-wallet-colour',middleWare.verifyRequest,walletController.updateWalletColour);
 router.post('/currency-list',middleWare.verifyRequest,walletController.currencyList);
+router.post('/add-wallet',middleWare.verifyRequest,walletController.addWallet);
 
 module.exports = router;

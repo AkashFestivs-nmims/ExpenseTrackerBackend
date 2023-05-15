@@ -44,6 +44,29 @@ module.exports = {
                 let data = result[0].rows;
                 res.send(data);
             })  
+    },
+
+    addWallet :async (req,res,next) =>{
+        let redisJson = await redisDB.get(req.body.key);
+        let value = JSON.parse(redisJson);
+
+        let imgName = crypto.randomUUID()+req.body.WalletName;
+        let imgData = await uploadImage(imgName,req.body.walletIcon);
+        let obj = {"wallet" : [{
+            "user_lid" : value[0].user_lid,
+            "walletIcon" : imgData.url,
+            "WalletName" : req.body.WalletName,
+            "ammount" : req.body.ammount,
+            "currencyTypeId" : req.body.currencyTypeId,
+            "walletColour" : req.body.walletColour,
+            }
+        ]}
+
+        Promise.all([queryresult.addWallet(obj)]).then(result => {
+            console.log('result : ',result[0].rows);
+            let data = result[0].rows;
+            res.status(200).json(data);
+        })  
     }
 
     
