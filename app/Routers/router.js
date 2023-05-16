@@ -3,6 +3,7 @@ const middleWare = require('../middleWare/middleWare.js')
 const controller = require('../Controllers/controller.js');
 const PaymnetController = require('../Controllers/paymentController.js');
 const walletController = require('../Controllers/walletContoller.js');
+const transactionController = require('../Controllers/transactionController.js');
 
 
 router.post('/get-access-token',controller.generateAccessToken);
@@ -27,5 +28,9 @@ router.post('/update-wallet-ammount',middleWare.verifyRequest,walletController.u
 router.post('/update-wallet-colour',middleWare.verifyRequest,walletController.updateWalletColour);
 router.post('/currency-list',middleWare.verifyRequest,walletController.currencyList);
 router.post('/add-wallet',middleWare.verifyRequest,walletController.addWallet);
+
+//*Transaction Routing
+
+router.post('/initialize_transaction',middleWare.verifyRequest,transactionController.initializeTransaction)
 
 module.exports = router;
